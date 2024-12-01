@@ -16,7 +16,7 @@ export const TextGenerateEffect = ({
   duration?: number;
 }) => {
   const [scope, animate] = useAnimate();
-  const wordsArray = words.split(" "); // Use const instead of let
+  let wordsArray = words.split(" ");
 
   useEffect(() => {
     animate(
@@ -30,7 +30,7 @@ export const TextGenerateEffect = ({
         delay: stagger(0.2),
       }
     );
-  }, [animate, duration, filter]); // Add animate, duration, and filter to dependencies
+  }, [scope.current]);
 
   const renderWords = () => {
     return (
