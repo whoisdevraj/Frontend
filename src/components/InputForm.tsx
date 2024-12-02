@@ -37,10 +37,14 @@ export const requestApiKey = async (email: string) => {
       email,
     });
     return response.data.message;
-  } catch (error: AxiosError<ApiError>) {
-    throw new Error(
-      error.response?.data?.message || "Failed to generate API key."
-    );
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(
+        (error.response?.data as ApiError)?.message ||
+          "Failed to generate API key."
+      );
+    }
+    throw new Error("An unknown error occurred.");
   }
 };
 
