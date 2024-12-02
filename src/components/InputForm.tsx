@@ -62,12 +62,15 @@ export function InputForm() {
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       const message = await requestApiKey(data.email);
-      success(`API Key Generated: ${message}`); // Success toast
+      success(
+        `Success! The API key has been sent to your email: ${data.email}`
+      ); // Clear success message
+      form.reset(); // Optional: Reset form after submission
     } catch (err: unknown) {
       if (err instanceof Error) {
         error(err.message || "Error generating API key."); // Error toast
       } else {
-        error("An unknown error occurred."); // Fallback message for non-Error objects
+        error("An unknown error occurred."); // Fallback message
       }
     }
   };
